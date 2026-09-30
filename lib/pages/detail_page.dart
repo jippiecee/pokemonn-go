@@ -1,17 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/models/pokemon.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  final Pokemon pokemon;
+
+  const DetailPage({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Nama Pokemon'),
+      appBar: AppBar(title: Text(pokemon.name)),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadiusGeometry.circular(20),
+                child: Image.asset(pokemon.image),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 5,),
+                  Text(
+                    pokemon.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.blue,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                    child: Text(pokemon.type),
+                  ),
+                  Text(
+                    "Base Power : ${pokemon.basePower}",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "Deskripsi",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    pokemon.description,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "Skills",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  SizedBox(height: 8),
+                  Wrap(
+                    children: pokemon.skills.map(
+                            (e) =>
+                                Row(
+                                  children: [
+                                    Icon(Icons.star),
+                                    SizedBox(width: 8,),
+                                    Text(e)
+                                  ],
+                                ))
+                        .toList(),
+                  ),
+                  SizedBox(height: 8),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Column(
-        children: <Widget>[],
-      ) ,
     );
   }
+}
+
+Widget Chip() {
+  return Container();
 }
