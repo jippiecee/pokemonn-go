@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_apps/data/pokemon_data.dart';
-import 'package:flutter_apps/models/pokemon.dart';
-import 'package:flutter_apps/pages/detail_page.dart';
 import 'package:flutter_apps/widgets/pokemon_card.dart';
 import 'package:flutter_apps/widgets/pokemon_list.dart';
 
@@ -13,22 +10,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Pokemon> pokemon = dataPokemon;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pokemon Go"),
+        title: Text("Pokemon GO`"),
         centerTitle: true,
-        leading: Icon(Icons.arrow_back_outlined),
-        actions: [Icon(Icons.favorite), SizedBox(width: 10)],
       ),
-      body: ListView.builder(
-        itemCount: pokemon.length,
-        itemBuilder: (BuildContext context, int index) {
-          return PokemonList(pokemon: pokemon[index]);
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hint: Text("Enter the pokemon"),
+                prefixIcon: Icon(Icons.search)
+              ),
+            ),
+          )
+        ],
       )
     );
   }
