@@ -26,7 +26,7 @@ class TypeChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: _typeColor(), width: 1)
       ),
-      child: Text(type),
+      child: Text(type, style: TextStyle(color: _typeColor()),),
     );
   }
 }

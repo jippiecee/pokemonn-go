@@ -21,6 +21,9 @@ class PokemonList extends StatelessWidget {
       onTap: () {
         detailPage(pokemon);
       },
+      onLongPress: (){
+
+      },
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(999),
         child: Hero(

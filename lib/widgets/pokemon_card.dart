@@ -6,9 +6,10 @@ import 'package:flutter_apps/widgets/type_chip.dart';
 class PokemonCard extends StatelessWidget {
   //properties
   final Pokemon pokemon;
+  final String type;
 
   //constructor
-  const PokemonCard({super.key, required this.pokemon});
+  const PokemonCard({super.key, required this.pokemon, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +21,41 @@ class PokemonCard extends StatelessWidget {
       );
     }
 
+    Color _typeColor(){
+      if(type.contains('Water')) return Colors.blue;
+      if(type.contains('Poison')) return Colors.purple;
+      if(type.contains('Grass')) return Colors.green;
+      if(type.contains('Electric')) return Colors.amber;
+      if(type.contains('Dragon')) return Colors.indigo;
+      if(type.contains('Fire')) return Colors.red;
+      if(type.contains('Ice')) return Colors.teal;
+      if(type.contains('Normal')) return Colors.grey;
+      if(type.contains('Fighting')) return Colors.orange;
+      return Colors.amber;
+    }
+
     return InkWell(
       onTap: () {
         detailPage(Pokemon);
       },
-      child: Card(
-        elevation: 6,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        clipBehavior: Clip.antiAlias,
+      child: Container(
+        margin: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: _typeColor().withOpacity(0.2),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Column(
           children: [
             Hero(
               tag: pokemon.name,
-              child: Image.asset(
-                pokemon.image,
-                fit: BoxFit.cover,
-                width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  pokemon.image,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 200,
+                ),
               ),
             ),
             Padding(
