@@ -13,24 +13,23 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     void detailPage(Pokemon) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => DetailPage(pokemon: pokemon)),
+        MaterialPageRoute(builder: (_) => DetailPage(pokemon: pokemon, type: type,)),
       );
     }
 
-    Color _typeColor(){
-      if(type.contains('Water')) return Colors.blue;
-      if(type.contains('Poison')) return Colors.purple;
-      if(type.contains('Grass')) return Colors.green;
-      if(type.contains('Electric')) return Colors.amber;
-      if(type.contains('Dragon')) return Colors.indigo;
-      if(type.contains('Fire')) return Colors.red;
-      if(type.contains('Ice')) return Colors.teal;
-      if(type.contains('Normal')) return Colors.grey;
-      if(type.contains('Fighting')) return Colors.orange;
+    Color _typeColor() {
+      if (type.contains('Water')) return Colors.blue;
+      if (type.contains('Poison')) return Colors.purple;
+      if (type.contains('Grass')) return Colors.green;
+      if (type.contains('Electric')) return Colors.amber;
+      if (type.contains('Dragon')) return Colors.indigo;
+      if (type.contains('Fire')) return Colors.red;
+      if (type.contains('Ice')) return Colors.teal;
+      if (type.contains('Normal')) return Colors.grey;
+      if (type.contains('Fighting')) return Colors.orange;
       return Colors.amber;
     }
 
@@ -66,6 +65,16 @@ class PokemonCard extends StatelessWidget {
                   Expanded(child: Text(pokemon.name)),
                   TypeChip(type: pokemon.type),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                pokemon.description,
+                style: TextStyle(letterSpacing: 1, fontSize: 10, fontFamily: "Poppins"),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.justify,
               ),
             ),
           ],

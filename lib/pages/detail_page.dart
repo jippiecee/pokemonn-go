@@ -5,7 +5,22 @@ import 'package:flutter_apps/widgets/type_chip.dart';
 
 class DetailPage extends StatefulWidget {
   final Pokemon pokemon;
-  const DetailPage({super.key, required this.pokemon});
+  final String type;
+
+  const DetailPage({super.key, required this.pokemon, required this.type});
+
+  Color _typeColor() {
+    if (type.contains('Water')) return Colors.blue;
+    if (type.contains('Poison')) return Colors.purple;
+    if (type.contains('Grass')) return Colors.green;
+    if (type.contains('Electric')) return Colors.amber;
+    if (type.contains('Dragon')) return Colors.indigo;
+    if (type.contains('Fire')) return Colors.red;
+    if (type.contains('Ice')) return Colors.teal;
+    if (type.contains('Normal')) return Colors.grey;
+    if (type.contains('Fighting')) return Colors.orange;
+    return Colors.amber;
+  }
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -27,10 +42,9 @@ class _DetailPageState extends State<DetailPage> {
             fontSize: 32,
           ),
         ),
-        actions: [
-          Icon(Icons.favorite_border_rounded),
-          SizedBox(width: 15,)
-        ],
+        backgroundColor: widget._typeColor().withOpacity(0.2),
+        actions: [Icon(Icons.favorite_border_rounded), SizedBox(width: 15)],
+        centerTitle: true,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -126,7 +140,7 @@ class _DetailPageState extends State<DetailPage> {
                                             topLeft: Radius.circular(30),
                                           ),
                                           border: Border.all(
-                                            color: Colors.amber,
+                                            color: widget._typeColor(),
                                             width: 2,
                                             style: BorderStyle.solid,
                                           ),
@@ -312,15 +326,18 @@ class _DetailPageState extends State<DetailPage> {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Container(
-                                    width: MediaQuery.of(
-                                      context,
-                                    ).size.width,
+                                    width: MediaQuery.of(context).size.width,
                                     margin: EdgeInsets.symmetric(
                                       horizontal: 5.0,
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadiusGeometry.circular(25),
-                                        child: Image.network(toElement, fit: BoxFit.cover,)),
+                                      borderRadius:
+                                          BorderRadiusGeometry.circular(25),
+                                      child: Image.network(
+                                        toElement,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   );
                                 },
                               );
@@ -340,10 +357,11 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: widget.pokemon.movies.asMap().entries.map((entry) {
+                          children: widget.pokemon.movies.asMap().entries.map((
+                            entry,
+                          ) {
                             return GestureDetector(
-                              onTap: () =>
-                                  _controller.animateToPage(entry.key),
+                              onTap: () => _controller.animateToPage(entry.key),
                               child: Container(
                                 width: 12.0,
                                 height: 12.0,
