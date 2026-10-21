@@ -8,18 +8,22 @@ class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
   final String type;
 
+  final bool isFavorite;
+  final VoidCallback onTap;
+  final VoidCallback onFavoriteTap;
+
   //constructor
-  const PokemonCard({super.key, required this.pokemon, required this.type});
+  const PokemonCard({
+    super.key,
+    required this.pokemon,
+    required this.type,
+    required this.isFavorite,
+    required this.onTap,
+    required this.onFavoriteTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    void detailPage(Pokemon) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => DetailPage(pokemon: pokemon, type: type,)),
-      );
-    }
-
     Color _typeColor() {
       if (type.contains('Water')) return Colors.blue;
       if (type.contains('Poison')) return Colors.purple;
@@ -34,9 +38,7 @@ class PokemonCard extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () {
-        detailPage(Pokemon);
-      },
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.all(15),
         decoration: BoxDecoration(
@@ -71,7 +73,11 @@ class PokemonCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 pokemon.description,
-                style: TextStyle(letterSpacing: 1, fontSize: 10, fontFamily: "Poppins"),
+                style: TextStyle(
+                  letterSpacing: 1,
+                  fontSize: 10,
+                  fontFamily: "Poppins",
+                ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 textAlign: TextAlign.justify,

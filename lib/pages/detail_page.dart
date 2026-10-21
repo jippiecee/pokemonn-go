@@ -6,8 +6,9 @@ import 'package:flutter_apps/widgets/type_chip.dart';
 class DetailPage extends StatefulWidget {
   final Pokemon pokemon;
   final String type;
+  final bool isFavorite;
 
-  const DetailPage({super.key, required this.pokemon, required this.type});
+  const DetailPage({super.key, required this.pokemon, required this.type, required this.isFavorite});
 
   Color _typeColor() {
     if (type.contains('Water')) return Colors.blue;
