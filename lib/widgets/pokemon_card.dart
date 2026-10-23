@@ -4,36 +4,26 @@ import 'package:flutter_apps/pages/detail_page.dart';
 import 'package:flutter_apps/widgets/type_chip.dart';
 
 class PokemonCard extends StatelessWidget {
-  //properties
   final Pokemon pokemon;
   final String type;
-
   final bool isFavorite;
   final VoidCallback onTap;
   final VoidCallback onFavoriteTap;
 
-  //constructor
-  const PokemonCard({
-    super.key,
-    required this.pokemon,
-    required this.type,
-    required this.isFavorite,
-    required this.onTap,
-    required this.onFavoriteTap,
-  });
+  const PokemonCard({super.key, required this.pokemon, required this.type, required this.isFavorite, required this.onTap, required this.onFavoriteTap});
 
   @override
   Widget build(BuildContext context) {
-    Color _typeColor() {
+    Color warna() {
       if (type.contains('Water')) return Colors.blue;
       if (type.contains('Poison')) return Colors.purple;
-      if (type.contains('Grass')) return Colors.green;
+      if (type.contains("Grass")) return Colors.green;
       if (type.contains('Electric')) return Colors.amber;
       if (type.contains('Dragon')) return Colors.indigo;
-      if (type.contains('Fire')) return Colors.red;
+      if (type.contains("Fire")) return Colors.red;
       if (type.contains('Ice')) return Colors.teal;
       if (type.contains('Normal')) return Colors.grey;
-      if (type.contains('Fighting')) return Colors.orange;
+      if (type.contains("Fighting")) return Colors.orange;
       return Colors.amber;
     }
 
@@ -41,69 +31,41 @@ class PokemonCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: _typeColor().withOpacity(0.2),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Hero(
-                  tag: pokemon.name,
-                  child: ClipRRect(
+        decoration: BoxDecoration(color: warna().withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
+        child: Column(children: [
+          Stack(fit: StackFit.passthrough, textDirection: TextDirection.ltr, children: [
+            Hero(
+                tag: pokemon.name,
+                child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      pokemon.image,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 200,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: GestureDetector(
-                    onTap: onFavoriteTap,
-                    child: Container(
-                      padding: const EdgeInsets.all(6),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.pink : Colors.grey,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(child: Text(pokemon.name)),
-                  TypeChip(type: pokemon.type),
-                ],
+                    child: Image.asset(pokemon.image, fit: BoxFit.cover, width: double.infinity, height: 200))),
+            Align(
+              alignment: Alignment.topRight,
+              child: FloatingActionButton(
+                backgroundColor: Colors.transparent,
+                onPressed: () { onFavoriteTap(); },
+                child: isFavorite
+                    ? Icon(Icons.favorite, color: Colors.pink)
+                    : Icon(Icons.favorite_border_rounded, color: Colors.white),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                pokemon.description,
-                style: TextStyle(
-                  letterSpacing: 1,
-                  fontSize: 10,
-                  fontFamily: "Poppins",
-                ),
+          ]),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(child: Text(pokemon.name)),
+              TypeChip(type: pokemon.type),
+            ]),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(pokemon.description,
+                style: TextStyle(letterSpacing: 1, fontSize: 10, fontFamily: "Poppins"),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
-                textAlign: TextAlign.justify,
-              ),
-            ),
-          ],
-        ),
+                textAlign: TextAlign.justify),
+          ),
+        ]),
       ),
     );
   }
