@@ -108,7 +108,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Switch(value: isSwitch, onChanged: (value) {}),
+                Switch(
+                value: _showFavoriteOnly,
+                  onChanged: (value) {
+                   setState(() {
+                     _showFavoriteOnly = value;
+                           });
+                               },
+),
               ],
             ),
           ),
@@ -133,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         onFavoriteTap: () {
                           _toggleFavorite(pokemon.name);
-                        },
+                        }, type: pokemon.type,
                       );
                     },
                     itemCount: filtered.length,

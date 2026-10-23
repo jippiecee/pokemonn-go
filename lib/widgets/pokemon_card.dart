@@ -47,17 +47,36 @@ class PokemonCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Hero(
-              tag: pokemon.name,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  pokemon.image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 200,
+            Stack(
+              children: [
+                Hero(
+                  tag: pokemon.name,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      pokemon.image,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 200,
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: onFavoriteTap,
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.pink : Colors.grey,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
